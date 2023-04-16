@@ -1,0 +1,17 @@
+{
+  "name": "utility-libraty",
+  "version": "1.0.0",
+  "description": "A library with utility functions",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [
+    "utility"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "devDependencies": {
+    "jest": "^29.5.0"
+  }
+}
