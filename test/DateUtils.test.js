@@ -46,6 +46,21 @@ describe('DateUtils', () => {
     });
   });
 
+  describe('getDaysInMonth', () => {
+    test('returns the number of days in the month', () => {
+      const date = 1650194400000; // April
+      const daysInMonth = DateUtils.getDaysInMonth(date);
+      expect(daysInMonth).toBe(30);
+    });
+  
+    test('throws an error for an invalid date', () => {
+      const date = 'invalid date';
+      expect(() => {
+        DateUtils.getDaysInMonth(date);
+      }).toThrow('Invalid date');
+    });
+  });
+
   describe('getCurrentDateInMilliseconds', () => {
     test('returns current date in milliseconds', () => {
       const now = Date.now();
@@ -125,3 +140,29 @@ describe('DateUtils', () => {
     });
   });
 });
+
+describe("diffInYears", () => {
+  test("should return 0 when the two dates are the same", () => {
+    const date1 = new Date("2022-01-01").getTime();
+    const date2 = new Date("2022-01-01").getTime();
+    expect(DateUtils.diffInYears(date1, date2)).toEqual(0);
+  });
+
+  test("should return the difference in years between two dates", () => {
+    const date1 = new Date("2022-01-01").getTime();
+    const date2 = new Date("2023-01-01").getTime();
+    expect(DateUtils.diffInYears(date1, date2)).toEqual(1);
+  });
+
+  test("should round down when the difference is less than a year", () => {
+    const date1 = new Date("2022-01-01").getTime();
+    const date2 = new Date("2022-06-30").getTime();
+    expect(DateUtils.diffInYears(date1, date2)).toEqual(0);
+  });
+
+  test("should round up when the difference is more than a year", () => {
+    const date1 = new Date("2022-01-01").getTime();
+    const date2 = new Date("2023-06-30").getTime();
+    expect(DateUtils.diffInYears(date1, date2)).toEqual(1);
+  });
+})
