@@ -128,6 +128,27 @@ function addYears(date, years) {
   return newDate.getTime();
 }
 
+/**
+ * Calculates the age of a person based on their birthdate and a base date.
+ *
+ * @param {Date} birthDate - The person's birthdate.
+ * @param {Date} [baseDate=new Date()] - The base date to calculate the age from (defaults to the current date).
+ * @returns {number} The person's age in years.
+ * @throws {Error} If either argument is not a valid Date object.
+ */
+function getAge(birthDate, baseDate) {
+  if (!(birthDate instanceof Date) || (baseDate && !(baseDate instanceof Date))) {
+      throw new Error("Invalid input");
+  }
+  baseDate = baseDate || new Date();
+  var age = baseDate.getFullYear() - birthDate.getFullYear();
+  var m = baseDate.getMonth() - birthDate.getMonth();
+  if (m < 0 || (m === 0 && baseDate.getDate() < birthDate.getDate())) {
+      age--;
+  }
+  return age;
+}
+
 const DateUtils = {
   isMilliseconds,
   formatDate,
@@ -140,6 +161,7 @@ const DateUtils = {
   subtractDays,
   addMonths,
   addYears,
+  getAge
 };
 
 module.exports = DateUtils;

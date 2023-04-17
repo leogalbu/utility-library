@@ -166,3 +166,27 @@ describe("diffInYears", () => {
     expect(DateUtils.diffInYears(date1, date2)).toEqual(1);
   });
 })
+
+describe("_getAge", () => {
+  test("returns the correct age when baseDate is not provided", () => {
+      const birthDate = new Date(1990, 0, 1);
+      const expectedAge = new Date().getFullYear() - birthDate.getFullYear();
+      expect(DateUtils.getAge(birthDate)).toBe(expectedAge);
+  });
+
+  test("returns the correct age when baseDate is provided", () => {
+      const birthDate = new Date(1990, 0, 1);
+      const baseDate = new Date(2022, 0, 1);
+      const expectedAge = baseDate.getFullYear() - birthDate.getFullYear();
+      expect(DateUtils.getAge(birthDate, baseDate)).toBe(expectedAge);
+  });
+
+  test("throws an error when birthDate is not a Date object", () => {
+      expect(() => DateUtils.getAge("1990-01-01")).toThrow("Invalid input");
+  });
+
+  test("throws an error when baseDate is not a Date object", () => {
+      const birthDate = new Date(1990, 0, 1);
+      expect(() =>DateUtils.getAge(birthDate, "2022-01-01")).toThrow("Invalid input");
+  });
+});
